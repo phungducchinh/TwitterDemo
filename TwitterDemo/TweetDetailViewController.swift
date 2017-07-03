@@ -45,7 +45,7 @@ class TweetDetailViewController: UIViewController {
         tweetTextLabel.text = tweetItem?.text as String?
         userNamLAbel.text = "@\(tweetItem?.user?.screenname!)"
         profileLabel.text = tweetItem?.user?.name
-        //tweetId = (tweetItem?.id_str)!
+  //      tweetId = (tweetItem?.id_str)!
         
         if let retweet = tweetItem!.retweetBy {
             retweetLabel.text = "\(retweet) Retweeted"
@@ -57,8 +57,8 @@ class TweetDetailViewController: UIViewController {
 //            //heightAuto.constant = CGFloat(0)
 //        }
         
-//        let data = try! Data(contentsOf: tweetItem?.user?.profileImageUrl as! URL)
-//        profileImage.image = UIImage(data: data)
+        let data = try! Data(contentsOf: tweetItem?.user?.profileUrl as! URL)
+        profileImage.image = UIImage(data: data)
         
         if (tweetItem?.isFavorited)! {
             favoriteActionImage.isSelected = true

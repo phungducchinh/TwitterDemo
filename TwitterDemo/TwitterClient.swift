@@ -18,6 +18,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     var loginFailure: ((NSError) -> ())?
     let API_POST_NEW_FAVORITE = "1.1/favorites/create.json"
     let API_POST_DETROY_FAVORITE = "1.1/favorites/destroy.json"
+    let API_POST_NEW_STATUS = "1.1/statuses/update.json"
     
     func homeTimeLine(success: @escaping ([Tweet]) -> (), failure: @escaping (NSError) -> () ){
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -143,5 +144,19 @@ class TwitterClient: BDBOAuth1SessionManager {
                 failure(error as! NSError)
         })
     }
+    
+    func updateNewTweet(tweet: String, completion: @escaping (_ response: Any?, _ error: NSError?) -> () ) {
+        var params = [String : String]()
+        params["status"] = tweet
+        TwitterClient.sharedInstance?.post(API_POST_NEW_STATUS, parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any ) in
+            print("update status success")
+            completion(response, nil)
+        }, failure: { (task: URLSessionDataTask?, error) in
+            completion(nil, error as NSError?)
+            print("update status fail")
+        })
+        
+    }
+
     
 }

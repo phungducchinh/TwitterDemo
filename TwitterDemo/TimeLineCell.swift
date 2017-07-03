@@ -44,7 +44,7 @@ class TimeLineCell: UITableViewCell {
             //userNamLAbel.text = "@\(self.tweetItem!.user?.screenname!)"
             userNamLAbel.text = "@\(self.tweetItem?.user?.screenname)"
             profileLabel.text = self.tweetItem?.user?.name;
-            //tweetId = (tweetItem?.id_str)!
+         //   tweetId = (tweetItem?.id_str)!
             
             if let retweet = tweetItem!.retweetBy {
                 retweetLabel.text = "\(retweet) Retweeted"
@@ -54,8 +54,8 @@ class TimeLineCell: UITableViewCell {
                 //heightAuto.constant = CGFloat(0)
             }
             
-            //let data = try! Data(contentsOf: (self.tweetItem?.user?.profileUrl as? URL)!)
-            //profileImage.image = UIImage(data: data)
+            let data = try! Data(contentsOf: (self.tweetItem?.user?.profileUrl as? URL)!)
+            profileImage.image = UIImage(data: data)
             
             if (tweetItem?.isFavorited)! {
                 favoriteActionImage.isSelected = true

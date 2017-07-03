@@ -77,7 +77,7 @@ class TweetsViewController: UIViewController {
             
             
             destVC.tweetItem = tweet
-            destVC.delegate = self
+          //  destVC.delegate = self
             
             
             
