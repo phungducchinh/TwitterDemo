@@ -18,6 +18,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     var loginFailure: ((NSError) -> ())?
     let API_POST_NEW_FAVORITE = "1.1/favorites/create.json"
     let API_POST_DETROY_FAVORITE = "1.1/favorites/destroy.json"
+    
     func homeTimeLine(success: @escaping ([Tweet]) -> (), failure: @escaping (NSError) -> () ){
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let dictionaries = response as! [NSDictionary]
@@ -27,6 +28,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (task: URLSessionDataTask?, error: Error!) in
             failure(error as! NSError)
         })
+
     }
 
     
@@ -58,7 +60,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         //NotificationCenter.default.post(User.userDidLogoutNotification as! NSNotification, object: nil)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
     }
-
+//TwitterClient.sharedInstance?.handleOpenUrl(url: url as NSURL)
     func handleOpenUrl(url: NSURL){
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         

@@ -15,7 +15,6 @@ protocol TweetCellDelegate {
 
 class TimeLineCell: UITableViewCell {
 
-    @IBOutlet weak var heightAuto: NSLayoutConstraint!
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var profileLabel: UILabel!
@@ -42,20 +41,21 @@ class TimeLineCell: UITableViewCell {
             faveriteCountLabel.text = self.tweetItem?.favouritesCount.description
             retweetCountLabel.text = self.tweetItem?.retweetCount.description
             tweetTextLabel.text = self.tweetItem?.text as String?
-            userNamLAbel.text = "@\(self.tweetItem!.user!.screenname!)"
-            profileLabel.text = self.tweetItem?.user?.name as! String
-            tweetId = (tweetItem?.id_str)!
+            //userNamLAbel.text = "@\(self.tweetItem!.user?.screenname!)"
+            userNamLAbel.text = "@\(self.tweetItem?.user?.screenname)"
+            profileLabel.text = self.tweetItem?.user?.name;
+            //tweetId = (tweetItem?.id_str)!
             
             if let retweet = tweetItem!.retweetBy {
                 retweetLabel.text = "\(retweet) Retweeted"
-                retweetImage.image = #imageLiteral(resourceName: "retweet-action-on")
-                heightAuto.constant = CGFloat(20)
+                retweetImage.image = UIImage(named: "retweet_on")
+                //heightAuto.constant = CGFloat(20)
             }else {
-                heightAuto.constant = CGFloat(0)
+                //heightAuto.constant = CGFloat(0)
             }
             
-            let data = try! Data(contentsOf: tweetItem?.user?.profileUrl as! URL)
-            profileImage.image = UIImage(data: data)
+            //let data = try! Data(contentsOf: (self.tweetItem?.user?.profileUrl as? URL)!)
+            //profileImage.image = UIImage(data: data)
             
             if (tweetItem?.isFavorited)! {
                 favoriteActionImage.isSelected = true
@@ -68,7 +68,7 @@ class TimeLineCell: UITableViewCell {
             }else {
                 retweetActionImage.isSelected = false
             }
-            timeLabel.text = tweetItem?.createdAt
+            timeLabel.text = tweetItem?.timeString
         }
         
     }
@@ -105,10 +105,10 @@ class TimeLineCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        retweetActionImage.setImage(#imageLiteral(resourceName: "retweet-action"), for: .normal)
-        retweetActionImage.setImage(#imageLiteral(resourceName: "retweet-action-on"), for: .selected)
-        favoriteActionImage.setImage(#imageLiteral(resourceName: "like-action-on"), for: .selected)
-        favoriteActionImage.setImage(#imageLiteral(resourceName: "like-action"), for: .normal)
+        retweetActionImage.setImage(UIImage(named: "retweet_off"), for: .normal)
+        retweetActionImage.setImage(UIImage(named: "retweet_on"), for: .selected)
+        favoriteActionImage.setImage(UIImage(named: "like_on"), for: .selected)
+        favoriteActionImage.setImage(UIImage(named: "like_off"), for: .normal)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
